@@ -4,25 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bihar Government Links & News</title>
-   
+    <link rel="stylesheet" href="styles.css">
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Times New Roman', Times, serif;
             margin: 0;
             padding: 0;
-            background-color: #f8f9fa;
+            background-color: #fff;
             color: #333;
-            position: relative; /* Added to ensure the overlay is positioned correctly */
-            z-index: 1; /* Added to ensure the body content is above the overlay */
+            position: relative;
+            z-index: 1;
         }
         header {
-            background-color: rgba(52, 58, 64, 0.9); /* Adjusted transparency */
+            background-color: #004080;
             color: #fff;
             padding: 20px;
             text-align: center;
             position: relative;
             box-shadow: 0 9px 9px rgba(0, 0, 0, 0.5);
-            border-bottom: 1px solid #ccc; /* Added border */
+            border-bottom: 1px solid #ccc;
         }
         header img {
             position: absolute;
@@ -37,8 +37,8 @@
         }
         .sidebar {
             flex-shrink: 0;
-            width: 200px; /* Adjusted width */
-            background-color: rgba(52, 58, 64, 0.9); /* Adjusted transparency */
+            width: 250px;
+            background-color: #004080;
             padding: 20px;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
             color: #fff;
@@ -47,17 +47,48 @@
             left: 0;
             height: 100vh;
             overflow-y: auto;
-            border-right: 1px solid #ccc; /* Added border */
+            border-right: 1px solid #ccc;
+            bottom: 0;
+            transform: translateX(0);
             transition: transform 0.3s ease-in-out;
+            animation: backgroundAnimation 10s infinite alternate;
+        }
+        @keyframes backgroundAnimation {
+            0% {
+                background-color: #004080;
+            }
+            50% {
+                background-color: #0056b3;
+            }
+            100% {
+                background-color: #004080;
+            }
         }
         .sidebar.hidden {
             transform: translateX(-100%);
         }
+        .sidebar .date-time {
+            background-color: #e8d100;
+            color: #0371e4;
+            padding: 30px 1px;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 350px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .sidebar .date-time h2 {
+            margin: 0;
+            font-size: 16px;
+        }
+        .sidebar .date-time p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
         .sidebar button {
-            width: 100%; /* Adjusted width */
-            padding: 15px; /* Adjusted padding */
+            width: 100%;
+            padding: 15px;
             margin-bottom: 10px;
-            background-color: rgba(73, 80, 87, 0.9); /* Adjusted transparency */
+            background-color: #0056b3;
             color: #fff;
             border: none;
             border-radius: 5px;
@@ -66,19 +97,22 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         .sidebar button:hover {
-            background-color: rgba(108, 117, 125, 0.9); /* Adjusted transparency */
+            background-color: #003366;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         .content {
             flex-grow: 1;
-            padding: 40px; /* Adjusted padding */
-            margin-left: 220px; /* Adjusted margin */
-            max-width: calc(100% - 220px); /* Adjusted max-width */
-            background-color: rgba(255, 255, 255, 0.95); /* Adjusted transparency */
+            padding: 40px;
+            margin-left: 270px;
+            max-width: calc(100% - 270px);
+            background-color: #f8f9fa;
             border-radius: 10px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            border-left: 1px solid #ccc; /* Added border */
+            border-left: 1px solid #ccc;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
         .reopen-sidebar {
             position: fixed;
@@ -96,7 +130,7 @@
             display: block;
         }
         h1, h2 {
-            color: #343a40;
+            color: #004080;
             margin-bottom: 15px;
         }
         ul {
@@ -108,7 +142,7 @@
         }
         a {
             text-decoration: none;
-            color: #007bff;
+            color: #004080;
             background-color: #e9ecef;
             padding: 10px 15px;
             border-radius: 5px;
@@ -117,22 +151,24 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         a:hover {
-            background-color: #007bff;
+            background-color: #004080;
             color: #fff;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         .news-section {
-            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
         .news-item {
             background-color: #fff;
-            padding: 20px; /* Adjusted padding */
-            border-radius: 10px; /* Adjusted border-radius */
+            padding: 20px;
+            border-radius: 10px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px; /* Adjusted margin-bottom */
+            margin-bottom: 20px;
             transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid #ccc; /* Added border */
+            border: 1px solid #ccc;
         }
         .news-item:hover {
             transform: translateY(-5px);
@@ -140,22 +176,22 @@
         }
         .news-item h3 {
             margin: 0 0 10px 0;
-            font-size: 20px; /* Adjusted font-size */
-            color: #fb0202;
+            font-size: 20px;
+            color: #004080;
         }
         .news-item p {
             margin: 0;
-            font-size: 16px; /* Adjusted font-size */
+            font-size: 16px;
             color: #666;
         }
         .back-to-top {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background-color: #007bff;
+            background-color: #004080;
             color: #fff;
             padding: 10px 15px;
-            border-radius: 50%; /* Adjusted border-radius */
+            border-radius: 50%;
             text-align: center;
             cursor: pointer;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -163,40 +199,40 @@
             display: none;
         }
         .back-to-top:hover {
-            background-color: #0056b3;
+            background-color: #003366;
             transform: translateY(-2px);
         }
         .suggestion-box {
             background-color: #fff;
-            padding: 30px; /* Adjusted padding */
-            border-radius: 10px; /* Adjusted border-radius */
+            padding: 30px;
+            border-radius: 10px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             margin-top: 30px;
-            border: 1px solid #ccc; /* Added border */
+            border: 1px solid #ccc;
         }
         .suggestion-box h2 {
-            color: #343a40;
+            color: #004080;
             margin-bottom: 15px;
         }
         .suggestion-box textarea {
             width: 100%;
-            padding: 15px; /* Adjusted padding */
-            border-radius: 10px; /* Adjusted border-radius */
+            padding: 15px;
+            border-radius: 10px;
             border: 1px solid #ccc;
-            margin-bottom: 20px; /* Adjusted margin-bottom */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin-bottom: 20px;
+            font-family: 'Times New Roman', Times, serif;
         }
         .suggestion-box button {
-            background-color: #007bff;
+            background-color: #004080;
             color: #fff;
-            padding: 10px 20px; /* Adjusted padding */
+            padding: 10px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
         }
         .suggestion-box button:hover {
-            background-color: #0056b3;
+            background-color: #003366;
             transform: translateY(-2px);
         }
         .notification-bar {
@@ -204,7 +240,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            background-color: rgba(255, 193, 7, 0.9); /* Adjusted transparency */
+            background-color: #ffcc00;
             color: #333;
             text-align: center;
             padding: 10px 0;
@@ -212,7 +248,7 @@
             transform: translateY(-100%);
             transition: transform 0.3s ease-in-out;
             z-index: 1000;
-            border-bottom: 1px solid #ccc; /* Added border */
+            border-bottom: 1px solid #ccc;
         }
         .notification-bar.show {
             transform: translateY(0);
@@ -233,12 +269,12 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: rgba(255, 255, 255, 0.95); /* Adjusted transparency */
-            padding: 30px; /* Adjusted padding */
+            background-color: #fff;
+            padding: 30px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            border-radius: 10px; /* Adjusted border-radius */
+            border-radius: 10px;
             z-index: 1001;
-            border: 1px solid #ccc; /* Added border */
+            border: 1px solid #ccc;
         }
         .credit-modal.show {
             display: block;
@@ -252,105 +288,130 @@
             top: 10px;
             right: 10px;
         }
-        .date-time {
-            background-color: rgba(12, 175, 230, 0.289); /* Adjusted transparency */
-            padding: 30px;
-            border-radius: 10px; /* Adjusted border-radius */
-            box-shadow: 0 7px 7px rgba(0, 0, 0, 0.7);
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 200px;
+        .slogan {
+            font-size: 24px;
+            color: #004080;
             text-align: center;
-            z-index: 1000;
-            border: 1px solid #ccc; /* Added border */
+            margin-top: 20px;
+            animation: fadeIn 2s ease-in-out;
         }
-        .date-time h2 {
-            color: #343a40;
-            margin-bottom: 15px;
-            font-size: 18px; /* Adjusted font-size */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
-        .date-time p {
-            margin: 5px 0;
-            font-size: 16px; /* Adjusted font-size */
-            color: #666;
+        .important-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .important-links a {
+            flex: 1 1 calc(33.333% - 20px);
+            background-color: #004080;
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 18px;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+        }
+        .important-links a:hover {
+            background-color: #003366;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .footer {
+            background-color: #004080;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .map-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .zoom-controls {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        .zoom-controls button {
+            background-color: #004080;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .zoom-controls button:hover {
+            background-color: #003366;
+            transform: translateY(-2px);
+        }
+        .spinner {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #3498db;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+            z-index: 1002;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .visitor-counter {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            color: #004080;
         }
     </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
-                document.querySelector('.sidebar').classList.add('hidden');
-                document.querySelector('.reopen-sidebar').classList.add('show');
-            }, 2000); // Hide the sidebar after 2 seconds
-
-            document.querySelector('.reopen-sidebar').addEventListener('click', function() {
-                document.querySelector('.sidebar').classList.remove('hidden');
-                document.querySelector('.reopen-sidebar').classList.remove('show');
-            });
-
-            setTimeout(function() {
-                document.querySelector('.notification-bar').classList.add('show');
-            }, 1000); // Show the notification bar after 1 second
-
-            document.querySelector('.notification-bar .close-btn').addEventListener('click', function() {
-                document.querySelector('.notification-bar').classList.remove('show');
-            });
-
-            // Back to top button
-
-            const backToTopButton = document.querySelector('.back-to-top');
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 200) {
-                    backToTopButton.style.display = 'block';
-                } else {
-                    backToTopButton.style.display = 'none';
-                }
-            });
-
-            backToTopButton.addEventListener('click', function() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-
-            document.querySelector('.credit-btn').addEventListener('click', function() {
-                document.querySelector('.credit-modal').classList.add('show');
-            });
-
-            document.querySelector('.credit-modal .close-btn').addEventListener('click', function() {
-                document.querySelector('.credit-modal').classList.remove('show');
-            });
-
-            function updateDateTime() {
-                const dateTimeBox = document.querySelector('.date-time');
-                const now = new Date();
-                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                const date = now.toLocaleDateString(undefined, options);
-                const time = now.toLocaleTimeString();
-                dateTimeBox.innerHTML = `
-                    <h2>Current Date & Time</h2>
-                    <p>${date}</p>
-                    <p>${time}</p>
-                `;
-            }
-
-            setInterval(updateDateTime, 1000);
-            updateDateTime();
-        });
-    </script>
-    <head>
-        <!-- ...existing code... -->
-        <link rel="stylesheet" href="styles.css">
-        <!-- ...existing code... -->
-    </head>
 </head>
 <body>
-    <!-- Notification bar -->
+    <div class="spinner"></div>
     <div class="notification-bar">
         Welcome to the Bihar Government Exams & News website!
+        This is not a real website. It is created for educational purposes only.
         <button class="close-btn">&times;</button>
     </div>
+    <div class="warning-bar">
+        <p>Warning: Some features are not working at this moment.</p>
+    </div>
+    <div class="zoom-controls">
+        <button onclick="zoomIn()">Zoom In</button>
+        <button onclick="zoomOut()">Zoom Out</button>
+    </div>
+    <div class="reopen-sidebar" onclick="toggleSidebar()">☰</div>
     <div class="container">
         <div class="sidebar">
             <button onclick="location.href='#'">Home</button>
@@ -359,25 +420,32 @@
             <button onclick="location.href='index5.html'">Percentage Calculator</button>
             <button onclick="location.href='index4.html'">Contact</button>
             <button class="credit-btn">Credit</button>
+            <div class="advertising-block">
+                <h2>Advertise Here</h2>
+                <p>Contact: siddhant.anand17@gmail.com</p>
+            </div>
+            <div class="date-time">
+                <h2>Date & Time</h2>
+                <p id="current-date"></p>
+                <p id="current-time"></p>
+            </div>
         </div>
         <div class="content">
             <header>
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Bihar_Government_Banner.png/1600px-Bihar_Government_Banner.png" alt="Bihar Government Logo">
             </header>
             <h1>Bihar Government Important Links and Exams</h1>
+            <div class="slogan">JAI BIHAR</div>
             <main>
                 <h3>Important Links</h3>
-               
-
-                <ul>
-                    <li><a href="https://www.bpsc.bih.nic.in/" target="_blank">Bihar Public Service Commission (BPSC)</a></li>
-                    <li><a href="https://bceceboard.bihar.gov.in/" target="_blank">Bihar Combined Entrance Competitive Examination Board (BCECEB)</a></li>
-                    <li><a href="https://csbc.bih.nic.in/" target="_blank">Central Selection Board of Constable (CSBC)</a></li>
-                    <li><a href="https://bssc.bihar.gov.in/" target="_blank">Bihar Staff Selection Commission (BSSC)</a></li>
-                    <li><a href="https://secondary.biharboardonline.com/" target="_blank">Bihar School Examination Board (BSEB)</a></li>
-                <li><a href="https://dirsecondary.biharboardonline.com/Index.html target=">BIAHR BOARD OPEN SCHOOLING AND EXAMINATION,PATNA</a></li> 
-
-                </ul>
+                <div class="important-links">
+                    <a href="https://www.bpsc.bih.nic.in/" target="_blank">Bihar Public Service Commission (BPSC)</a>
+                    <a href="https://bceceboard.bihar.gov.in/" target="_blank">Bihar Combined Entrance Competitive Examination Board (BCECEB)</a>
+                    <a href="https://csbc.bih.nic.in/" target="_blank">Central Selection Board of Constable (CSBC)</a>
+                    <a href="https://bssc.bihar.gov.in/" target="_blank">Bihar Staff Selection Commission (BSSC)</a>
+                    <a href="https://secondary.biharboardonline.com/" target="_blank">Bihar School Examination Board (BSEB)</a>
+                    <a href="https://dirsecondary.biharboardonline.com/Index.html" target="_blank">Bihar Board Open Schooling and Examination, Patna</a>
+                </div>
                 <div class="news-section">
                     <h2>Important News</h2>
                     <div class="news-item">
@@ -399,13 +467,19 @@
                         <a href="https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.ndtv.com/india-news/no-evidence-of-paper-leak-in-bpsc-exam-bihar-minister-7371666&ved=2ahUKEwjo9oKN-JGLAxWnyzgGHeesMJgQFnoECBYQAQ&usg=AOvVaw2LNPtvmWAkSWXSz63N6SAM" target="_blank">Read more</a>
                     </div>
                 </div>
-                <div class="date-time">
-                    <!-- Date and time will be inserted here -->
-                </div>
                 <div class="suggestion-box">
                     <h2>Suggestion Box</h2>
                     <textarea rows="5" placeholder="Enter your suggestions here..."></textarea>
                     <button type="button">Submit</button>
+                </div>
+                <div class="visitor-counter" id="visitor-count">
+                    Number of Visitors: 0
+                </div>
+                <div class="map-container">
+                    <h2>Location: New Delhi</h2>
+                    <div class="map-box">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d224345.839123456!2d77.068897!3d28.527280!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1d1d1d1d1d1d%3A0x1d1d1d1d1d1d1d!2sNew%20Delhi%2C%20Delhi%2C%20India!5e0!3m2!1sen!2sus!4v1633021234567!5m2!1sen!2sus" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
                 </div>
             </main>
         </div>
@@ -415,6 +489,61 @@
         <p>Website created by Siddhant Anand</p>
     </div>
     <a href="#" class="back-to-top" title="Back to top">^</a>
-    <div class="reopen-sidebar">Reopen Sidebar</div>
+    <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="Indian Flag" class="india-flag">
+    <div class="footer">
+        THIS PAGE IS MADE WITH LOVE
+    </div>
+    <script src="index.js"></script>
+    <script>
+        function updateDateTime() {
+            const now = new Date();
+            const date = now.toLocaleDateString();
+            const time = now.toLocaleTimeString();
+            document.getElementById('current-date').textContent = date;
+            document.getElementById('current-time').textContent = time;
+        }
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+
+        function zoomIn() {
+            document.body.style.zoom = (parseFloat(document.body.style.zoom || 1) + 0.1).toString();
+        }
+
+        function zoomOut() {
+            document.body.style.zoom = (parseFloat(document.body.style.zoom || 1) - 0.1).toString();
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const reopenButton = document.querySelector('.reopen-sidebar');
+            sidebar.classList.toggle('hidden');
+            reopenButton.classList.toggle('show');
+        }
+
+        document.querySelector('.close-btn').addEventListener('click', () => {
+            document.querySelector('.notification-bar').classList.remove('show');
+        });
+
+        document.querySelector('.credit-btn').addEventListener('click', () => {
+            document.querySelector('.credit-modal').classList.add('show');
+        });
+
+        document.querySelector('.credit-modal .close-btn').addEventListener('click', () => {
+            document.querySelector('.credit-modal').classList.remove('show');
+        });
+
+        document.querySelector('.back-to-top').addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 200) {
+                document.querySelector('.back-to-top').style.display = 'block';
+            } else {
+                document.querySelector('.back-to-top').style.display = 'none';
+            }
+        });
+    </script>
+    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="Siddhant17" data-description="Support me on Buy me a coffee!" data-message="" data-color="#FF813F" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
 </body>
 </html>
