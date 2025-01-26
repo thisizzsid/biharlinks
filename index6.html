@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Items</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #fff;
+            color: #333;
+        }
+        h1 {
+            color: #004080;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .download-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .download-list li {
+            margin: 10px 0;
+        }
+        .download-list a {
+            text-decoration: none;
+            color: #004080;
+            background-color: #e9ecef;
+            padding: 10px 15px;
+            border-radius: 5px;
+            display: inline-block;
+            transition: background-color 0.3s, color 0.3s, transform 0.3s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .download-list a:hover {
+            background-color: #004080;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .folder {
+            margin-top: 20px;
+        }
+        .folder h2 {
+            color: #004080;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Download Items</h1>
+    <ul class="download-list">
+        <li><a href="path/to/your/pdf-file1.pdf" download>Download PDF 1</a></li>
+        <li><a href="path/to/your/pdf-file2.pdf" download>Download PDF 2</a></li>
+        <li><a href="path/to/your/pdf-file3.pdf" download>Download PDF 3</a></li>
+    </ul>
+    <div class="folder">
+        <h2>Folder 1</h2>
+        <ul class="download-list">
+            <li><a href="path/to/your/folder1/pdf-file1.pdf" download>Download PDF 1</a></li>
+            <li><a href="path/to/your/folder1/pdf-file2.pdf" download>Download PDF 2</a></li>
+        </ul>
+    </div>
+    <div class="folder">
+        <h2>Folder 2</h2>
+        <ul class="download-list">
+            <li><a href="path/to/your/folder2/pdf-file1.pdf" download>Download PDF 1</a></li>
+            <li><a href="path/to/your/folder2/pdf-file2.pdf" download>Download PDF 2</a></li>
+        </ul>
+    </div>
+</body>
+</html>
