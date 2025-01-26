@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bihar Government Links & News</title>
+   
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+            position: relative; /* Added to ensure the overlay is positioned correctly */
+            z-index: 1; /* Added to ensure the body content is above the overlay */
+        }
+        header {
+            background-color: rgba(52, 58, 64, 0.9); /* Adjusted transparency */
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 9px 9px rgba(0, 0, 0, 0.5);
+            border-bottom: 1px solid #ccc; /* Added border */
+        }
+        header img {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            height: 60px;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .sidebar {
+            flex-shrink: 0;
+            width: 200px; /* Adjusted width */
+            background-color: rgba(52, 58, 64, 0.9); /* Adjusted transparency */
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            color: #fff;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            overflow-y: auto;
+            border-right: 1px solid #ccc; /* Added border */
+            transition: transform 0.3s ease-in-out;
+        }
+        .sidebar.hidden {
+            transform: translateX(-100%);
+        }
+        .sidebar button {
+            width: 100%; /* Adjusted width */
+            padding: 15px; /* Adjusted padding */
+            margin-bottom: 10px;
+            background-color: rgba(73, 80, 87, 0.9); /* Adjusted transparency */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .sidebar button:hover {
+            background-color: rgba(108, 117, 125, 0.9); /* Adjusted transparency */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .content {
+            flex-grow: 1;
+            padding: 40px; /* Adjusted padding */
+            margin-left: 220px; /* Adjusted margin */
+            max-width: calc(100% - 220px); /* Adjusted max-width */
+            background-color: rgba(255, 255, 255, 0.95); /* Adjusted transparency */
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-left: 1px solid #ccc; /* Added border */
+        }
+        .reopen-sidebar {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none;
+            z-index: 1000;
+        }
+        .reopen-sidebar.show {
+            display: block;
+        }
+        h1, h2 {
+            color: #343a40;
+            margin-bottom: 15px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+            background-color: #e9ecef;
+            padding: 10px 15px;
+            border-radius: 5px;
+            display: inline-block;
+            transition: background-color 0.3s, color 0.3s, transform 0.3s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        a:hover {
+            background-color: #007bff;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .news-section {
+            margin-top: 30px;
+        }
+        .news-item {
+            background-color: #fff;
+            padding: 20px; /* Adjusted padding */
+            border-radius: 10px; /* Adjusted border-radius */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px; /* Adjusted margin-bottom */
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #ccc; /* Added border */
+        }
+        .news-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .news-item h3 {
+            margin: 0 0 10px 0;
+            font-size: 20px; /* Adjusted font-size */
+            color: #fb0202;
+        }
+        .news-item p {
+            margin: 0;
+            font-size: 16px; /* Adjusted font-size */
+            color: #666;
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 50%; /* Adjusted border-radius */
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, transform 0.3s;
+            display: none;
+        }
+        .back-to-top:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+        .suggestion-box {
+            background-color: #fff;
+            padding: 30px; /* Adjusted padding */
+            border-radius: 10px; /* Adjusted border-radius */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+            border: 1px solid #ccc; /* Added border */
+        }
+        .suggestion-box h2 {
+            color: #343a40;
+            margin-bottom: 15px;
+        }
+        .suggestion-box textarea {
+            width: 100%;
+            padding: 15px; /* Adjusted padding */
+            border-radius: 10px; /* Adjusted border-radius */
+            border: 1px solid #ccc;
+            margin-bottom: 20px; /* Adjusted margin-bottom */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .suggestion-box button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px; /* Adjusted padding */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .suggestion-box button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+        .notification-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 193, 7, 0.9); /* Adjusted transparency */
+            color: #333;
+            text-align: center;
+            padding: 10px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transform: translateY(-100%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 1000;
+            border-bottom: 1px solid #ccc; /* Added border */
+        }
+        .notification-bar.show {
+            transform: translateY(0);
+        }
+        .notification-bar .close-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .credit-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.95); /* Adjusted transparency */
+            padding: 30px; /* Adjusted padding */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 10px; /* Adjusted border-radius */
+            z-index: 1001;
+            border: 1px solid #ccc; /* Added border */
+        }
+        .credit-modal.show {
+            display: block;
+        }
+        .credit-modal .close-btn {
+            background: none;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        .date-time {
+            background-color: rgba(12, 175, 230, 0.289); /* Adjusted transparency */
+            padding: 30px;
+            border-radius: 10px; /* Adjusted border-radius */
+            box-shadow: 0 7px 7px rgba(0, 0, 0, 0.7);
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 200px;
+            text-align: center;
+            z-index: 1000;
+            border: 1px solid #ccc; /* Added border */
+        }
+        .date-time h2 {
+            color: #343a40;
+            margin-bottom: 15px;
+            font-size: 18px; /* Adjusted font-size */
+        }
+        .date-time p {
+            margin: 5px 0;
+            font-size: 16px; /* Adjusted font-size */
+            color: #666;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                document.querySelector('.sidebar').classList.add('hidden');
+                document.querySelector('.reopen-sidebar').classList.add('show');
+            }, 2000); // Hide the sidebar after 2 seconds
+
+            document.querySelector('.reopen-sidebar').addEventListener('click', function() {
+                document.querySelector('.sidebar').classList.remove('hidden');
+                document.querySelector('.reopen-sidebar').classList.remove('show');
+            });
+
+            setTimeout(function() {
+                document.querySelector('.notification-bar').classList.add('show');
+            }, 1000); // Show the notification bar after 1 second
+
+            document.querySelector('.notification-bar .close-btn').addEventListener('click', function() {
+                document.querySelector('.notification-bar').classList.remove('show');
+            });
+
+            // Back to top button
+
+            const backToTopButton = document.querySelector('.back-to-top');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 200) {
+                    backToTopButton.style.display = 'block';
+                } else {
+                    backToTopButton.style.display = 'none';
+                }
+            });
+
+            backToTopButton.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            document.querySelector('.credit-btn').addEventListener('click', function() {
+                document.querySelector('.credit-modal').classList.add('show');
+            });
+
+            document.querySelector('.credit-modal .close-btn').addEventListener('click', function() {
+                document.querySelector('.credit-modal').classList.remove('show');
+            });
+
+            function updateDateTime() {
+                const dateTimeBox = document.querySelector('.date-time');
+                const now = new Date();
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                const date = now.toLocaleDateString(undefined, options);
+                const time = now.toLocaleTimeString();
+                dateTimeBox.innerHTML = `
+                    <h2>Current Date & Time</h2>
+                    <p>${date}</p>
+                    <p>${time}</p>
+                `;
+            }
+
+            setInterval(updateDateTime, 1000);
+            updateDateTime();
+        });
+    </script>
+    <head>
+        <!-- ...existing code... -->
+        <link rel="stylesheet" href="styles.css">
+        <!-- ...existing code... -->
+    </head>
+</head>
+<body>
+    <!-- Notification bar -->
+    <div class="notification-bar">
+        Welcome to the Bihar Government Exams & News website!
+        <button class="close-btn">&times;</button>
+    </div>
+    <div class="container">
+        <div class="sidebar">
+            <button onclick="location.href='#'">Home</button>
+            <button onclick="location.href='index2.html'">Exams</button>
+            <button onclick="location.href='index3.html'">Results</button>
+            <button onclick="location.href='index5.html'">Percentage Calculator</button>
+            <button onclick="location.href='index4.html'">Contact</button>
+            <button class="credit-btn">Credit</button>
+        </div>
+        <div class="content">
+            <header>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Bihar_Government_Banner.png/1600px-Bihar_Government_Banner.png" alt="Bihar Government Logo">
+            </header>
+            <h1>Bihar Government Important Links and Exams</h1>
+            <main>
+                <h3>Important Links</h3>
+               
+
+                <ul>
+                    <li><a href="https://www.bpsc.bih.nic.in/" target="_blank">Bihar Public Service Commission (BPSC)</a></li>
+                    <li><a href="https://bceceboard.bihar.gov.in/" target="_blank">Bihar Combined Entrance Competitive Examination Board (BCECEB)</a></li>
+                    <li><a href="https://csbc.bih.nic.in/" target="_blank">Central Selection Board of Constable (CSBC)</a></li>
+                    <li><a href="https://bssc.bihar.gov.in/" target="_blank">Bihar Staff Selection Commission (BSSC)</a></li>
+                    <li><a href="https://secondary.biharboardonline.com/" target="_blank">Bihar School Examination Board (BSEB)</a></li>
+                <li><a href="https://dirsecondary.biharboardonline.com/Index.html target=">BIAHR BOARD OPEN SCHOOLING AND EXAMINATION,PATNA</a></li> 
+
+                </ul>
+                <div class="news-section">
+                    <h2>Important News</h2>
+                    <div class="news-item">
+                        <h3>Patna HC directs Bihar govt, BPSC to file counter affidavits</h3>
+                        <p>Published: Jan 17, 2025</p>
+                        <p>The Patna High Court has directed the Bihar government and the state public service commission to file counter affidavits on petitions seeking the cancellation of the Combined Competitive Exams held last month. The next hearing is scheduled for Jan 31.</p>
+                        <a href="https://www.hindustantimes.com/education/exam-results/exam-row-patna-hc-directs-bihar-govt-bpsc-to-file-counter-affidavits-next-hearing-jan-31-101737053437340.html" target="_blank">Read more</a>
+                    </div>
+                    <div class="news-item">
+                        <h3>BPSC exam can be cancelled if probe finds lapses: BJP minister</h3>
+                        <p>Published: Jan 10, 2025</p>
+                        <p>Bihar Minister Dilip Jaiswal stated that the BPSC exam could be cancelled if the ongoing inquiry uncovers any irregularities.</p>
+                        <a href="https://www.hindustantimes.com/education/competitive-exams/bpsc-exam-can-be-cancelled-if-probe-finds-lapses-bjp-minister-101736311051870.html" target="_blank">Read more</a>
+                    </div>
+                    <div class="news-item">
+                        <h3>No Evidence Of Paper Leak In BPSC Exam: Bihar Minister</h3>
+                        <p>Published: Jan 3, 2025</p>
+                        <p>The Bihar government has stated that there is no evidence.</p>
+                        <a href="https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.ndtv.com/india-news/no-evidence-of-paper-leak-in-bpsc-exam-bihar-minister-7371666&ved=2ahUKEwjo9oKN-JGLAxWnyzgGHeesMJgQFnoECBYQAQ&usg=AOvVaw2LNPtvmWAkSWXSz63N6SAM" target="_blank">Read more</a>
+                    </div>
+                </div>
+                <div class="date-time">
+                    <!-- Date and time will be inserted here -->
+                </div>
+                <div class="suggestion-box">
+                    <h2>Suggestion Box</h2>
+                    <textarea rows="5" placeholder="Enter your suggestions here..."></textarea>
+                    <button type="button">Submit</button>
+                </div>
+            </main>
+        </div>
+    </div>
+    <div class="credit-modal">
+        <button class="close-btn">&times;</button>
+        <p>Website created by Siddhant Anand</p>
+    </div>
+    <a href="#" class="back-to-top" title="Back to top">^</a>
+    <div class="reopen-sidebar">Reopen Sidebar</div>
+</body>
+</html>

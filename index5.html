@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Percentage Calculator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .calculator-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .calculator-container h1 {
+            color: #343a40;
+            margin-bottom: 20px;
+        }
+        .calculator-container input {
+            width: 100px;
+            padding: 20px;
+            margin: 10px;
+            border: 5px solid #ccc;
+            border-radius: 10px;
+            font-size: 17px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .calculator-container input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+        .calculator-container button {
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .calculator-container button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #343a40;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <h1>Percentage Calculator</h1>
+        <div>
+            <input type="number" id="col1" placeholder="Column 1">
+            <input type="number" id="col2" placeholder="Column 2">
+            <input type="number" id="col3" placeholder="Column 3">
+            <input type="number" id="col4" placeholder="Column 4">
+            <input type="number" id="col5" placeholder="Column 5">
+        </div>
+        <button onclick="calculatePercentage()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+    <script>
+        function calculatePercentage() {
+            const col1 = parseFloat(document.getElementById('col1').value) || 0;
+            const col2 = parseFloat(document.getElementById('col2').value) || 0;
+            const col3 = parseFloat(document.getElementById('col3').value) || 0;
+            const col4 = parseFloat(document.getElementById('col4').value) || 0;
+            const col5 = parseFloat(document.getElementById('col5').value) || 0;
+            const total = col1 + col2 + col3 + col4 + col5;
+            const percentage = (total / 5).toFixed(2);
+
+            if (col1 === 0 || col2 === 0 || col3 === 0 || col4 === 0 || col5 === 0) {
+                alert("Warning: Some input data may not be fully correct!");
+            }
+
+            document.getElementById('result').innerText = `Percentage: ${percentage}%`;
+        }
+    </script>
+</body>
+</html>
