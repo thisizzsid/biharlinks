@@ -6,6 +6,7 @@
     <title>Bihar Government Links & News</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link src="index5.html">
     
     <style>
         body {
@@ -127,11 +128,51 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-        .sidebar button.download-btn {
-            background-color: #28a745;
+        .sidebar button.home-btn:hover {
+            box-shadow: 0 0 10px #007bff;
+        }
+        .sidebar button.exams-btn:hover {
+            box-shadow: 0 0 10px #17a2b8;
+        }
+        .sidebar button.results-btn:hover {
+            box-shadow: 0 0 10px #28a745;
+        }
+        .sidebar button.calculator-btn:hover {
+            box-shadow: 0 0 10px #ffc107;
+        }
+        .sidebar button.contact-btn:hover {
+            box-shadow: 0 0 10px #dc3545;
         }
         .sidebar button.download-btn:hover {
-            background-color: #218838;
+            box-shadow: 0 0 10px #28a745;
+        }
+        .sidebar button.credit-btn:hover {
+            box-shadow: 0 0 10px #6c757d;
+        }
+        .sidebar button.active {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .sidebar button.home-btn.active {
+            box-shadow: 0 0 10px #007bff;
+        }
+        .sidebar button.exams-btn.active {
+            box-shadow: 0 0 10px #17a2b8;
+        }
+        .sidebar button.results-btn.active {
+            box-shadow: 0 0 10px #28a745;
+        }
+        .sidebar button.calculator-btn.active {
+            box-shadow: 0 0 10px #ffc107;
+        }
+        .sidebar button.contact-btn.active {
+            box-shadow: 0 0 10px #dc3545;
+        }
+        .sidebar button.download-btn.active {
+            box-shadow: 0 0 10px #28a745;
+        }
+        .sidebar button.credit-btn.active {
+            box-shadow: 0 0 10px #6c757d;
         }
         .content {
             flex-grow: 1;
@@ -509,7 +550,74 @@
             background-color: yellow;
         }
         .theme-toggle-btn {
-            display: none; /* Hide the button */
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        .theme-toggle-btn input {
+            display: none;
+        }
+        .theme-toggle-btn label {
+            background-color: #007bff;
+            border-radius: 34px;
+            width: 60px;
+            height: 34px;
+            position: relative;
+            transition: background-color 0.3s;
+        }
+        .theme-toggle-btn label::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 30px;
+            height: 30px;
+            background-color: #fff;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+        .theme-toggle-btn input:checked + label {
+            background-color: #0056b3;
+        }
+        .theme-toggle-btn input:checked + label::after {
+            transform: translateX(26px);
+        }
+        body.dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
+        body.dark-mode .sidebar {
+            background-color: #222;
+            color: #fff;
+        }
+        body.dark-mode .content {
+            background-color: #444;
+            color: #fff;
+        }
+        body.dark-mode .important-links a {
+            background-color: #555;
+            color: #fff;
+        }
+        body.dark-mode .important-links a:hover {
+            background-color: #666;
+        }
+        body.dark-mode .suggestion-box {
+            background-color: #555;
+            color: #fff;
+        }
+        body.dark-mode .suggestion-box button {
+            background-color: #007bff;
+        }
+        body.dark-mode .suggestion-box button:hover {
+            background-color: #0056b3;
+        }
+        body.dark-mode .footer {
+            background-color: #222;
+            color: #fff;
         }
         @media (max-width: 768px) {
             .sidebar {
@@ -693,6 +801,75 @@
             font-size: 16px;
             cursor: pointer;
         }
+        .popup-message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #000;
+            color: #0f0;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px #0f0, 0 0 30px #0f0, 0 0 40px #0f0;
+            z-index: 1002;
+            animation: fadeIn 0.5s ease-in-out;
+            font-size: 24px;
+            text-align: center;
+        }
+        .popup-message.show {
+            display: block;
+        }
+        .popup-message .close-btn {
+            background: none;
+            border: none;
+            color: #0f0;
+            font-size: 24px;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .news-section {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+            border: 1px solid #ccc;
+        }
+        .news-section h2 {
+            color: #004080;
+            margin-bottom: 15px;
+        }
+        .news-item {
+            margin-bottom: 20px;
+        }
+        .news-item h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #004080;
+        }
+        .news-item p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #333;
+        }
+        .news-item a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .news-item a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -706,15 +883,19 @@
        
     </div>
     <div class="reopen-sidebar" onclick="toggleSidebar()">☰</div>
+    <div class="theme-toggle-btn">
+        <input type="checkbox" id="theme-switch" onclick="toggleTheme()">
+        <label for="theme-switch"></label>
+    </div>
     <div class="container">
         <div class="sidebar">
-            <button class="home-btn" onclick="location.href='#home'"><i class="fas fa-home"></i> Home</button>
-            <button class="exams-btn" onclick="location.href='#exams'"><i class="fas fa-book"></i> Exams <span class="not-working">(Not Working)</span></button>
-            <button class="results-btn" onclick="location.href='index3.html'"><i class="fas fa-clipboard-check"></i> Results <span class="not-working">(Not Working)</span></button>
+            <button class="home-btn" onclick="setActive(this)"><i class="fas fa-home"></i> Home</button>
+            <button class="exams-btn" onclick="setActive(this)"><i class="fas fa-book"></i> Exams <span class="not-working">(Not Working)</span></button>
+            <button class="results-btn" onclick="setActive(this)"><i class="fas fa-clipboard-check"></i> Results <span class="not-working">(Not Working)</span></button>
             <button class="calculator-btn" onclick="location.href='index5.html'"><i class="fas fa-calculator"></i> Calculator</button>
-            <button class="contact-btn" onclick="location.href='index4.html'"><i class="fas fa-envelope"></i> Contact</button>
-            <button class="download-btn" onclick="downloadPDF()"><i class="fas fa-download"></i> Download PDF <span class="not-working">(Not Working)</span></button>
-            <button class="credit-btn" onclick="location.href='#credits'"><i class="fas fa-info-circle"></i> Credits</button>
+            <button class="contact-btn" onclick="setActive(this)"><i class="fas fa-envelope"></i> Contact</button>
+            <button class="download-btn" onclick="setActive(this)"><i class="fas fa-download"></i> Download PDF <span class="not-working">(Not Working)</span></button>
+            <button class="credit-btn" onclick="setActive(this)"><i class="fas fa-info-circle"></i> Credits</button>
             <div class="date-time">
                 <div class="info">
                     <i class="fas fa-calendar-alt"></i>
@@ -787,6 +968,10 @@
                         <span class="new-icon">New</span>
                     </div>
                 </div>
+                <div class="news-section">
+                    <h2>Latest Bihar News</h2>
+                    <div id="news-container">Loading news...</div>
+                </div>
                 <div class="suggestion-box">
                     <h2>Suggestion Box</h2>
                     <textarea rows="5" placeholder="Enter your suggestions here..."></textarea>
@@ -822,6 +1007,7 @@
         <a href="tel:+1234567890" title="Contact Number"><i class="fas fa-phone"></i></a>
         <a href="siddhant.anand17@gmail.com" title="Mail Me"><i class="fas fa-envelope"></i></a>
         <a href="tel:112" title="SOS"><i class="fas fa-exclamation-triangle"></i></a>
+        <a href="index6.html" title="Wikipedia"><i class="fas fa-globe"></i></a>
     </div>
     <div class="floating-contact-btn" onclick="toggleContact()">☎</div>
     <div class="contact-container" id="contact-container">
@@ -932,6 +1118,10 @@
         <div class="created-with">
             <img src="https://banner2.cleanpng.com/20180920/aey/kisspng-scalable-vector-graphics-github-computer-icons-log-github-brand-octacat-social-svg-png-icon-free-down-5ba35d7db54fe5.6273953815374329577427.jpg" alt="Created with VS Code and GitHub" style="height: 50px; margin-top: 10px;">
         </div>
+    </div>
+    <div class="popup-message" id="popup-message">
+        <button class="close-btn" onclick="closePopup()">&times;</button>
+        <p>WELCOME TO UNOFFICIAL PAGE OF BIHAR GOVERNMENT</p>
     </div>
     <script src="index.js"></script>
     <script>
@@ -1057,7 +1247,45 @@
             const contactContainer = document.getElementById('contact-container');
             contactContainer.style.display = contactContainer.style.display === 'none' || contactContainer.style.display === '' ? 'block' : 'none';
         }
+
+        function setActive(button) {
+            const buttons = document.querySelectorAll('.sidebar button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+        }
+
+        function closePopup() {
+            document.getElementById('popup-message').classList.remove('show');
+        }
+
+        window.onload = function() {
+            document.getElementById('popup-message').classList.add('show');
+        };
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        async function fetchBiharNews() {
+            const response = await fetch('https://news.abplive.com');
+            const data = await response.json();
+            const newsContainer = document.getElementById('news-container');
+            newsContainer.innerHTML = '';
+            data.results.forEach(article => {
+                const newsItem = document.createElement('div');
+                newsItem.classList.add('news-item');
+                newsItem.innerHTML = `
+                    <h3>${article.title}</h3>
+                    <p>Published: ${new Date(article.pubDate).toLocaleDateString()}</p>
+                    <p>${article.description}</p>
+                    <a href="${article.link}" target="_blank">Read more</a>
+                `;
+                newsContainer.appendChild(newsItem);
+            });
+        }
+        fetchBiharNews();
     </script>
     <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="Siddhant17" data-description="Support me on Buy me a coffee!" data-message="" data-color="#FF813F" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+    
 </body>
 </html>

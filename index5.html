@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Percentage Calculator</title>
+    
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -51,7 +52,8 @@
             border-color: #007bff;
             box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
         }
-        .calculator-container button {
+        .calculator-container button,
+        .cgpa-calculator-container button {
             padding: 10px 20px;
             margin-top: 20px;
             background-color: #007bff;
@@ -61,9 +63,18 @@
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
         }
-        .calculator-container button:hover {
+        .calculator-container button:hover,
+        .cgpa-calculator-container button:hover {
             background-color: #0056b3;
             transform: translateY(-2px);
+        }
+        .calculator-container .reset-btn,
+        .cgpa-calculator-container .reset-btn {
+            background-color: #dc3545;
+        }
+        .calculator-container .reset-btn:hover,
+        .cgpa-calculator-container .reset-btn:hover {
+            background-color: #c82333;
         }
         .result {
             margin-top: 20px;
@@ -76,66 +87,267 @@
             margin-top: 10px;
         }
         .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 200px;
-            height: 100%;
-            background-color: #343a40;
-            color: #fff;
+            flex-shrink: 0;
+            width: 250px;
+            background-color: #004080;
             padding: 20px;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-        }
-        .sidebar h2 {
             color: #fff;
-            margin-bottom: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            overflow-y: auto;
+            border-right: 1px solid #ccc;
+            bottom: 0;
+            transform: translateX(0);
+            transition: transform 0.3s ease-in-out;
+            animation: backgroundAnimation 10s infinite alternate;
         }
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
+        @keyframes backgroundAnimation {
+            0% {
+                background-color: #004080;
+            }
+            50% {
+                background-color: #0056b3;
+            }
+            100% {
+                background-color: #004080;
+            }
         }
-        .sidebar ul li {
+        .sidebar.hidden {
+            transform: translateX(-100%);
+        }
+        .sidebar button {
+            width: 100%;
+            padding: 15px;
             margin-bottom: 10px;
-        }
-        .sidebar ul li a {
+            background-color: #e6b504;
             color: #fff;
-            text-decoration: none;
-            transition: color 0.3s;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
         }
-        .sidebar ul li a:hover {
-            color: #007bff;
+        .sidebar button.home-btn {
+            background-color: #007bff;
+        }
+        .sidebar button.exams-btn {
+            background-color: #17a2b8;
+        }
+        .sidebar button.results-btn {
+            background-color: #28a745;
+        }
+        .sidebar button.calculator-btn {
+            background-color: #ffc107;
+        }
+        .sidebar button.contact-btn {
+            background-color: #dc3545;
+        }
+        .sidebar button.download-btn {
+            background-color: #28a745;
+        }
+        .sidebar button.credit-btn {
+            background-color: #6c757d;
+        }
+        .sidebar button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .sidebar button.home-btn:hover {
+            box-shadow: 0 0 10px #007bff;
+        }
+        .sidebar button.exams-btn:hover {
+            box-shadow: 0 0 10px #17a2b8;
+        }
+        .sidebar button.results-btn:hover {
+            box-shadow: 0 0 10px #28a745;
+        }
+        .sidebar button.calculator-btn:hover {
+            box-shadow: 0 0 10px #ffc107;
+        }
+        .sidebar button.contact-btn:hover {
+            box-shadow: 0 0 10px #dc3545;
+        }
+        .sidebar button.download-btn:hover {
+            box-shadow: 0 0 10px #28a745;
+        }
+        .sidebar button.credit-btn:hover {
+            box-shadow: 0 0 10px #6c757d;
+        }
+        .sidebar button.active {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .sidebar button.home-btn.active {
+            box-shadow: 0 0 10px #007bff;
+        }
+        .sidebar button.exams-btn.active {
+            box-shadow: 0 0 10px #17a2b8;
+        }
+        .sidebar button.results-btn.active {
+            box-shadow: 0 0 10px #28a745;
+        }
+        .sidebar button.calculator-btn.active {
+            box-shadow: 0 0 10px #ffc107;
+        }
+        .sidebar button.contact-btn.active {
+            box-shadow: 0 0 10px #dc3545;
+        }
+        .sidebar button.download-btn.active {
+            box-shadow: 0 0 10px #28a745;
+        }
+        .sidebar button.credit-btn.active {
+            box-shadow: 0 0 10px #6c757d;
+        }
+        .date-time {
+            background-color: #e8d100;
+            color: #0371e4;
+            padding: 30px 1px;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 390px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .date-time .info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-direction: column;
+        }
+        .date-time .info i {
+            font-size: 18px;
+        }
+        .date-time .info p {
+            margin: 0;
+            font-size: 14px;
+        }
+        .temperature {
+            margin-left: 20px;
+            font-size: 14px;
+            color: #0371e4;
+        }
+        .alert-box {
+            margin-right: 20px;
+            background-color: #ffcc00;
+            color: #333;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .alert-box:hover {
+            background-color: #ff9900;
         }
         .content {
             margin-left: 220px;
             padding: 20px;
         }
+        .cgpa-calculator-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+            margin-top: 40px;
+        }
+        .cgpa-calculator-container h1 {
+            color: #343a40;
+            margin-bottom: 20px;
+        }
+        .cgpa-calculator-container input {
+            width: 100px;
+            padding: 10px;
+            margin: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 17px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .cgpa-calculator-container input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+        .cgpa-result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #343a40;
+        }
+        .cgpa-warning {
+            color: #ff0000;
+            font-size: 14px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="sidebar">
-        <h2>Sidebar</h2>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="index5.html">Percentage Calculator</a></li>
-            <!-- Add more links as needed -->
-        </ul>
-        <button onclick="location.href='index.html'" style="margin-top: 20px; padding: 10px 20px; background-color: #007bff; color: #fff; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s, transform 0.3s;">Return to Home</button>
+        <button class="home-btn" onclick="location.href='index.html'"><i class="fas fa-home"></i> Home</button>
+        <button class="exams-btn" onclick="location.href='#exams'"><i class="fas fa-book"></i> Exams <span class="not-working">(Not Working)</span></button>
+        <button class="results-btn" onclick="location.href='index3.html'"><i class="fas fa-clipboard-check"></i> Results <span class="not-working">(Not Working)</span></button>
+        <button class="calculator-btn" onclick="location.href='index5.html'"><i class="fas fa-calculator"></i> Calculator</button>
+        <button class="contact-btn" onclick="location.href='index4.html'"><i class="fas fa-envelope"></i> Contact</button>
+        <button class="download-btn" onclick="downloadPDF()"><i class="fas fa-download"></i> Download PDF <span class="not-working">(Not Working)</span></button>
+        <button class="credit-btn" onclick="location.href='#credits'"><i class="fas fa-info-circle"></i> Credits</button>
+        <div class="date-time">
+            <div class="info">
+                <i class="fas fa-calendar-alt"></i>
+                <p id="current-date">Loading date...</p>
+            </div>
+            <div class="info">
+                <i class="fas fa-clock"></i>
+                <p id="current-time">Loading time...</p>
+            </div>
+            <div class="info">
+                <i class="fas fa-thermometer-half"></i>
+                <p id="temperature">Loading temperature...</p>
+            </div>
+            <div class="alert-box" onclick="showAlert()">Alert</div>
+        </div>
     </div>
     <div class="content">
         <div class="calculator-container">
             <h1>Percentage Calculator</h1>
             <div>
-                <input type="number" id="col1" placeholder="Column 1">
-                <input type="number" id="col2" placeholder="Column 2">
-                <input type="number" id="col3" placeholder="Column 3">
-                <input type="number" id="col4" placeholder="Column 4">
-                <input type="number" id="col5" placeholder="Column 5">
+                <input type="number" id="col1" placeholder="Subject 1">
+                <input type="number" id="col2" placeholder="Subject 2">
+                <input type="number" id="col3" placeholder="Subject 3">
+                <input type="number" id="col4" placeholder="Subject 4">
+                <input type="number" id="col5" placeholder="Subject 5">
             </div>
             <button onclick="calculatePercentage()">Calculate</button>
+            <button class="reset-btn" onclick="resetPercentageCalculator()">Reset</button>
             <div class="result" id="result"></div>
             <div class="warning" id="warning"></div>
         </div>
+        <div class="cgpa-calculator-container">
+            <h1>CGPA Calculator</h1>
+            <div>
+                <input type="number" id="sem1" placeholder="Semester 1">
+                <input type="number" id="sem2" placeholder="Semester 2">
+                <input type="number" id="sem3" placeholder="Semester 3">
+                <input type="number" id="sem4" placeholder="Semester 4">
+                <input type="number" id="sem5" placeholder="Semester 5">
+                <input type="number" id="sem6" placeholder="Semester 6">
+                <input type="number" id="sem7" placeholder="Semester 7">
+                <input type="number" id="sem8" placeholder="Semester 8">
+            </div>
+            <button onclick="calculateCGPA()">Calculate CGPA</button>
+            <button class="reset-btn" onclick="resetCGPACalculator()">Reset</button>
+            <div class="cgpa-result" id="cgpa-result"></div>
+            <div class="cgpa-warning" id="cgpa-warning"></div>
+        </div>
     </div>
+    <div class="floating-icons">
+        <a href="index6.html" title="Wikipedia"><i class="fas fa-globe"></i></a>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script>
         function calculatePercentage() {
             const col1 = parseFloat(document.getElementById('col1').value) || 0;
@@ -154,7 +366,115 @@
             }
 
             document.getElementById('result').innerText = `Percentage: ${percentage}%`;
+            generatePDF('Percentage', percentage, [col1, col2, col3, col4, col5]);
         }
+
+        function resetPercentageCalculator() {
+            document.getElementById('col1').value = '';
+            document.getElementById('col2').value = '';
+            document.getElementById('col3').value = '';
+            document.getElementById('col4').value = '';
+            document.getElementById('col5').value = '';
+            document.getElementById('result').innerText = '';
+            document.getElementById('warning').innerText = '';
+        }
+
+        function calculateCGPA() {
+            const sem1 = parseFloat(document.getElementById('sem1').value) || 0;
+            const sem2 = parseFloat(document.getElementById('sem2').value) || 0;
+            const sem3 = parseFloat(document.getElementById('sem3').value) || 0;
+            const sem4 = parseFloat(document.getElementById('sem4').value) || 0;
+            const sem5 = parseFloat(document.getElementById('sem5').value) || 0;
+            const sem6 = parseFloat(document.getElementById('sem6').value) || 0;
+            const sem7 = parseFloat(document.getElementById('sem7').value) || 0;
+            const sem8 = parseFloat(document.getElementById('sem8').value) || 0;
+            const total = sem1 + sem2 + sem3 + sem4 + sem5 + sem6 + sem7 + sem8;
+            const cgpa = (total / 8).toFixed(2);
+
+            const cgpaWarning = document.getElementById('cgpa-warning');
+            if (sem1 === 0 || sem2 === 0 || sem3 === 0 || sem4 === 0 || sem5 === 0 || sem6 === 0 || sem7 === 0 || sem8 === 0) {
+                cgpaWarning.innerText = "Warning: Some input data may not be fully correct!";
+            } else {
+                cgpaWarning.innerText = "";
+            }
+
+            document.getElementById('cgpa-result').innerText = `CGPA: ${cgpa}`;
+            generatePDF('CGPA', cgpa, [sem1, sem2, sem3, sem4, sem5, sem6, sem7, sem8]);
+        }
+
+        function resetCGPACalculator() {
+            document.getElementById('sem1').value = '';
+            document.getElementById('sem2').value = '';
+            document.getElementById('sem3').value = '';
+            document.getElementById('sem4').value = '';
+            document.getElementById('sem5').value = '';
+            document.getElementById('sem6').value = '';
+            document.getElementById('sem7').value = '';
+            document.getElementById('sem8').value = '';
+            document.getElementById('cgpa-result').innerText = '';
+            document.getElementById('cgpa-warning').innerText = '';
+        }
+
+        function generatePDF(type, result, marks) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            doc.setFontSize(20);
+            doc.text("Calculation Result", 20, 20);
+            doc.setFontSize(16);
+            doc.text(`${type}: ${result}`, 20, 40);
+
+            doc.setFontSize(14);
+            doc.text("Entered Marks:", 20, 60);
+            const headers = ["Column 1", "Column 2", "Column 3", "Column 4", "Column 5"];
+            if (type === 'CGPA') {
+                headers[0] = "Semester 1";
+                headers[1] = "Semester 2";
+                headers[2] = "Semester 3";
+                headers[3] = "Semester 4";
+                headers[4] = "Semester 5";
+                headers.push("Semester 6", "Semester 7", "Semester 8");
+            }
+
+            let y = 70;
+            headers.forEach((header, index) => {
+                doc.text(`${header}: ${marks[index]}`, 20, y);
+                y += 10;
+            });
+
+            doc.setFontSize(12);
+            doc.text("This result is generated by the Bihar Government Links & News website.", 20, y + 10);
+            doc.text("Digitally signed by Siddhant Anand", 20, y + 20);
+            doc.addImage("https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Bihar_Government_Banner.png/1600px-Bihar_Government_Banner.png", "PNG", 20, y + 30, 50, 20);
+
+            // Add watermark
+            doc.setTextColor(15);
+            doc.setFontSize(26);
+            doc.text("Bihar Government Links & News", 35, 150, { angle: 45 });
+
+            doc.save("result.pdf");
+        }
+
+        function downloadPDF() {
+            const link = document.createElement('a');
+            link.href = 'path/to/your/pdf-file.pdf'; // Replace with the actual path to your PDF file
+            link.download = 'Bihar_Government_Info.pdf';
+            link.click();
+        }
+
+        function showAlert() {
+            alert('This is an alert message!');
+        }
+
+        function updateDateTime() {
+            const now = new Date();
+            const date = now.toLocaleDateString();
+            const time = now.toLocaleTimeString();
+            document.getElementById('current-date').textContent = date;
+            document.getElementById('current-time').textContent = time;
+        }
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
     </script>
 </body>
 </html>
